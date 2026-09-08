@@ -247,7 +247,7 @@ python eval/eval.py eval/labels.example.json predictions.json
 
 ## 🔤 On-Device OCR: Implementation & Tradeoffs
 
-Kaappan includes an on-device OCR engine ([ocrad.js](file:///c:/Users/nparu/OneDrive/Desktop/sih26171-browser-agent-all-black/sih26171-browser-agent/extension/lib/ocrad.js)) running directly inside the Chrome Extension background worker for fast local text detection on canvas-rendered PII and image crops:
+Kaappan includes an on-device OCR engine ([ocrad.js](extension/lib/ocrad.js)) running directly inside the Chrome Extension background worker for fast local text detection on canvas-rendered PII and image crops:
 
 - **MV3 Compatibility Patch**: Modified `ocrad.js` initialization header to replace dynamic `eval()` execution with safe environment detection (`Module = typeof Module !== 'undefined' ? Module : {}`), ensuring full compliance with Chrome MV3 `wasm-unsafe-eval` Content Security Policy (CSP).
 - **Execution Performance**: Synchronous crop OCR executes in 3–12ms per element box, avoiding remote network overhead.

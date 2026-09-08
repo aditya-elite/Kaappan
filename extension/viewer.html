@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kaappan — Redaction Transparency Viewer</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card-bg: #161b22;
+      --border: #30363d;
+      --text: #c9d1d9;
+      --text-muted: #8b949e;
+      --accent: #58a6ff;
+      --accent-green: #3fb950;
+      --accent-red: #f85149;
+      --accent-purple: #bc8cff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    header {
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .header-left h1 {
+      margin: 0;
+      font-size: 17px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .header-left .tag {
+      font-size: 11px;
+      background: rgba(88, 166, 255, 0.15);
+      color: var(--accent);
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-weight: normal;
+    }
+
+    .privacy-notice {
+      background: rgba(63, 185, 80, 0.12);
+      border: 1px solid rgba(63, 185, 80, 0.3);
+      color: #7ee787;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .controls-bar {
+      background: #11161d;
+      border-bottom: 1px solid var(--border);
+      padding: 8px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .step-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn {
+      background: #21262d;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .btn:hover:not(:disabled) {
+      background: #30363d;
+      border-color: #8b949e;
+    }
+    .btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    select#stepSelect {
+      background: #21262d;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .view-mode-toggle {
+      display: flex;
+      background: #21262d;
+      border-radius: 6px;
+      padding: 2px;
+      border: 1px solid var(--border);
+    }
+    .view-mode-toggle button {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 5px 12px;
+      font-size: 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .view-mode-toggle button.active {
+      background: var(--card-bg);
+      color: var(--text);
+      font-weight: 600;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .main-content {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .viewer-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow: auto;
+      position: relative;
+    }
+
+    /* Split Slider Container */
+    .slider-wrapper {
+      position: relative;
+      max-width: 100%;
+      max-height: 100%;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      border-radius: 8px;
+      overflow: hidden;
+      user-select: none;
+      display: inline-block;
+      background: #000;
+    }
+    .slider-wrapper img {
+      display: block;
+      max-height: 72vh;
+      max-width: 100%;
+      object-fit: contain;
+    }
+    .slider-redacted-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 50%;
+      overflow: hidden;
+      border-right: 2px solid #ffffff;
+    }
+    .slider-redacted-layer img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      max-height: 72vh;
+      max-width: none;
+    }
+    .slider-handle {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      cursor: ew-resize;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+    .slider-handle::after {
+      content: "◀ ▶";
+      background: #ffffff;
+      color: #0d1117;
+      font-size: 10px;
+      padding: 5px 7px;
+      border-radius: 12px;
+      font-weight: bold;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    /* Side-by-side mode */
+    .side-by-side-wrapper {
+      display: flex;
+      gap: 16px;
+      max-height: 72vh;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+    }
+    .side-col {
+      flex: 1;
+      max-width: 48%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .side-col h4 {
+      margin: 0 0 8px 0;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .side-col-img-box {
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      background: #000;
+    }
+    .side-col-img-box img {
+      display: block;
+      max-height: 65vh;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    /* Highlight canvas overlay for bounding boxes */
+    canvas.highlight-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    /* Sidebar with region details */
+    .sidebar {
+      width: 360px;
+      background: var(--card-bg);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .sidebar-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .region-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px 0;
+    }
+    .region-item {
+      padding: 9px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      cursor: pointer;
+      font-size: 12px;
+      transition: background 0.15s;
+    }
+    .region-item:hover, .region-item.active {
+      background: rgba(88, 166, 255, 0.12);
+    }
+    .region-item-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .source-badge {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .source-dom { background: rgba(88, 166, 255, 0.2); color: #58a6ff; }
+    .source-regex { background: rgba(210, 153, 34, 0.2); color: #d29922; }
+    .source-vision { background: rgba(188, 140, 255, 0.2); color: #bc8cff; }
+
+    .summary-bar {
+      background: var(--card-bg);
+      border-top: 1px solid var(--border);
+      padding: 10px 24px;
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .empty-state {
+      padding: 60px 40px;
+      text-align: center;
+      color: var(--text-muted);
+      max-width: 480px;
+    }
+    .empty-state h3 {
+      color: var(--text);
+      margin-bottom: 10px;
+      font-size: 17px;
+    }
+    .empty-state p {
+      line-height: 1.5;
+      font-size: 13.5px;
+    }
+    .empty-state .hint-box {
+      margin-top: 18px;
+      background: rgba(88, 166, 255, 0.08);
+      border: 1px solid rgba(88, 166, 255, 0.25);
+      border-radius: 6px;
+      padding: 12px 16px;
+      color: #79c0ff;
+      font-size: 12px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <h1>
+        Kaappan — Redaction Transparency Viewer
+        <span class="tag">Zero-Leak Proof</span>
+      </h1>
+    </div>
+    <div class="privacy-notice">
+      🔒 Original screenshots are held in memory for this session only and are never written to disk, exported, or transmitted.
+    </div>
+  </header>
+
+  <div class="controls-bar">
+    <div class="step-nav">
+      <button id="prevStep" class="btn" disabled>← Prev Step</button>
+      <select id="stepSelect"></select>
+      <button id="nextStep" class="btn" disabled>Next Step →</button>
+      <button id="refreshBtn" class="btn">🔄 Refresh Data</button>
+      <button id="clearHistoryBtn" class="btn">Clear In-Memory History</button>
+    </div>
+
+    <div class="view-mode-toggle">
+      <button id="btnSlider" class="active">Split Slider</button>
+      <button id="btnSideBySide">Side by Side</button>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="viewer-panel" id="viewerPanel">
+      <div id="emptyView" class="empty-state">
+        <h3>No Comparison Steps Recorded Yet</h3>
+        <p>Run a task in the extension to capture and inspect real-time on-device redactions.</p>
+        <div class="hint-box">
+          💡 <strong>Tip:</strong> Keep this tab open while you click <strong>Start Agent Task</strong> in the extension popup. This viewer will automatically update live with each perceived step!
+        </div>
+      </div>
+
+      <!-- Slider View -->
+      <div id="sliderContainer" class="slider-wrapper" style="display: none;">
+        <img id="origImg" alt="Original Unredacted Screen" />
+        <div id="redactedLayer" class="slider-redacted-layer">
+          <img id="redactedImg" alt="Redacted Output Sent to Model" />
+        </div>
+        <div id="sliderHandle" class="slider-handle"></div>
+        <canvas id="sliderCanvas" class="highlight-canvas"></canvas>
+      </div>
+
+      <!-- Side by Side View -->
+      <div id="sideBySideContainer" class="side-by-side-wrapper" style="display: none;">
+        <div class="side-col">
+          <h4>Original (In-Memory Only)</h4>
+          <div class="side-col-img-box">
+            <img id="sideOrigImg" alt="Original" />
+            <canvas id="sideOrigCanvas" class="highlight-canvas"></canvas>
+          </div>
+        </div>
+        <div class="side-col">
+          <h4>Redacted (Transmitted)</h4>
+          <div class="side-col-img-box">
+            <img id="sideRedactedImg" alt="Redacted" />
+            <canvas id="sideRedactedCanvas" class="highlight-canvas"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <span>Redacted Regions in this Step</span>
+        <span id="regionCountBadge" class="tag">0 regions</span>
+      </div>
+      <div class="region-list" id="regionList"></div>
+    </div>
+  </div>
+
+  <div class="summary-bar" id="summaryBar">
+    <span id="summaryText">Ready.</span>
+    <span id="timingText"></span>
+  </div>
+
+  <script src="viewer.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fixture 11 - Negative Controls</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 20px; line-height: 1.6; }
+    .box { border: 1px solid #cbd5e1; padding: 20px; border-radius: 6px; max-width: 500px; }
+  </style>
+</head>
+<body>
+  <h2>Order Confirmation (Non-PII Controls)</h2>
+  <div class="box">
+    <p>Order Number: <span data-pii="none">Order #4111 1111 1111 1111</span></p>
+    <p>Book ISBN: <span data-pii="none">ISBN 978-3-16-148410-0</span></p>
+    <p>Shipment Tracking: <span data-pii="none">TRK-9876543210-IND</span></p>
+    <p>Date: <span data-pii="none">2026-09-04</span></p>
+  </div>
+
+  <script>
+    window.__groundTruth = function() {
+      const items = [];
+      document.querySelectorAll('[data-pii]').forEach(node => {
+        const category = node.getAttribute('data-pii');
+        const range = document.createRange();
+        range.selectNodeContents(node);
+        const clientRects = Array.from(range.getClientRects());
+        let rects = clientRects.map(r => ({ x: r.left, y: r.top, width: r.width, height: r.height }));
+        if (rects.length === 0) {
+          const r = node.getBoundingClientRect();
+          rects = [{ x: r.left, y: r.top, width: r.width, height: r.height }];
+        }
+        items.push({
+          category: category,
+          rects: rects,
+          text: node.innerText || ''
+        });
+      });
+      return items;
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fixture 13 - Dense Table Stress Test</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 15px; background: #fff; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { border: 1px solid #cbd5e1; padding: 6px 8px; text-align: left; }
+    th { background: #f1f5f9; }
+  </style>
+</head>
+<body>
+  <h2>Customer Export Log (Dense Stress Test)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Customer Name</th>
+        <th>Email Address</th>
+        <th>Contact Phone</th>
+        <th>Aadhaar Number</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>101</td>
+        <td>Amit Patel</td>
+        <td><span data-pii="email">amit.p@company.org</span></td>
+        <td><span data-pii="phone">9811122233</span></td>
+        <td><span data-pii="aadhaar">1111 2222 3333</span></td>
+      </tr>
+      <tr>
+        <td>102</td>
+        <td>Sunita Rao</td>
+        <td><span data-pii="email">sunita.r@company.org</span></td>
+        <td><span data-pii="phone">9822233344</span></td>
+        <td><span data-pii="aadhaar">2222 3333 4444</span></td>
+      </tr>
+      <tr>
+        <td>103</td>
+        <td>Vikram Singh</td>
+        <td><span data-pii="email">vikram.s@company.org</span></td>
+        <td><span data-pii="phone">9833344455</span></td>
+        <td><span data-pii="aadhaar">3333 4444 5555</span></td>
+      </tr>
+      <tr>
+        <td>104</td>
+        <td>Meera Nair</td>
+        <td><span data-pii="email">meera.n@company.org</span></td>
+        <td><span data-pii="phone">9844455566</span></td>
+        <td><span data-pii="aadhaar">4444 5555 6666</span></td>
+      </tr>
+      <tr>
+        <td>105</td>
+        <td>Karan Joshi</td>
+        <td><span data-pii="email">karan.j@company.org</span></td>
+        <td><span data-pii="phone">9855566677</span></td>
+        <td><span data-pii="aadhaar">5555 6666 7777</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+    window.__groundTruth = function() {
+      const items = [];
+      document.querySelectorAll('[data-pii]').forEach(node => {
+        const category = node.getAttribute('data-pii');
+        const range = document.createRange();
+        range.selectNodeContents(node);
+        const clientRects = Array.from(range.getClientRects());
+        let rects = clientRects.map(r => ({ x: r.left, y: r.top, width: r.width, height: r.height }));
+        if (rects.length === 0) {
+          const r = node.getBoundingClientRect();
+          rects = [{ x: r.left, y: r.top, width: r.width, height: r.height }];
+        }
+        items.push({
+          category: category,
+          rects: rects,
+          text: node.innerText || ''
+        });
+      });
+      return items;
+    };
+  </script>
+</body>
+</html>

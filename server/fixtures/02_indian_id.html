@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fixture 02 - Indian ID Page</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px; background: #fff; line-height: 1.6; }
+    .card { border: 1px solid #e2e8f0; padding: 20px; border-radius: 8px; max-width: 500px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h3>Identity Verification Details</h3>
+    <p>Aadhaar Number: <span data-pii="aadhaar">4123 5678 9012</span></p>
+    <p>Permanent Account Number (PAN): <span data-pii="pan">ABCDE1234F</span></p>
+    <p>Holder: Rahul Verma</p>
+  </div>
+
+  <script>
+    window.__groundTruth = function() {
+      const items = [];
+      document.querySelectorAll('[data-pii]').forEach(node => {
+        const category = node.getAttribute('data-pii');
+        const range = document.createRange();
+        range.selectNodeContents(node);
+        const clientRects = Array.from(range.getClientRects());
+        let rects = clientRects.map(r => ({ x: r.left, y: r.top, width: r.width, height: r.height }));
+        if (rects.length === 0) {
+          const r = node.getBoundingClientRect();
+          rects = [{ x: r.left, y: r.top, width: r.width, height: r.height }];
+        }
+        items.push({
+          category: category,
+          rects: rects,
+          text: node.innerText || ''
+        });
+      });
+      return items;
+    };
+  </script>
+</body>
+</html>

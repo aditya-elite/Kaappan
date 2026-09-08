@@ -1,0 +1,81 @@
+# ==============================================================================
+# Kaappan — Git Ignore Rules
+# Designed for safe open-source public repository hosting.
+# ==============================================================================
+
+# --- Operating System & System Files ---
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# --- IDEs, Editors & AI Caches ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+.gemini/
+*.code-workspace
+
+# --- Secrets, Credentials & Private Keys ---
+# NEVER commit real credentials, tokens, or private signing keys to a public repo.
+.env
+*.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pkcs12
+*.pfx
+*.p12
+*.crt
+*.cer
+*.crx
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+ENV/
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+*.log
+
+# --- Node & Package Managers ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.tmp-ort/
+extension/.tmp-ort/
+
+# --- Large Vendored WASM Runtimes ---
+# ONNX runtime wasm modules exceed 80MB combined and should be installed
+# locally via `./setup.sh` rather than committed into git history.
+extension/lib/*.wasm
+extension/lib/*.mjs
+
+# --- Local Test, Audit & Benchmark Outputs ---
+audit_log*.json
+benchmark_report*.json
+predictions*.json
+eval/results/
+eval/predictions/
+eval/runs/

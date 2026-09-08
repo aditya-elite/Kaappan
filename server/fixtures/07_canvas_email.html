@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fixture 07 - Canvas Rendered Email</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 20px; }
+    canvas { border: 1px solid #cbd5e1; background: #ffffff; }
+  </style>
+</head>
+<body>
+  <h2>Canvas Rendered Text</h2>
+  <p>The email below is rendered on a HTML5 Canvas element:</p>
+  <canvas id="emailCanvas" width="400" height="80" data-pii="email"></canvas>
+
+  <script>
+    const canvas = document.getElementById('emailCanvas');
+    const ctx = canvas.getContext('2d');
+    ctx.font = '20px sans-serif';
+    ctx.fillStyle = '#0f172a';
+    ctx.fillText('canvas.email@example.com', 20, 45);
+
+    window.__groundTruth = function() {
+      const items = [];
+      const node = document.querySelector('[data-pii]');
+      if (node) {
+        const category = node.getAttribute('data-pii');
+        const r = node.getBoundingClientRect();
+        // The text is drawn inside the canvas at (20, 25, width ~ 260, height ~ 30)
+        items.push({
+          category: category,
+          rects: [{ x: r.left + 15, y: r.top + 20, width: 280, height: 35 }],
+          text: 'canvas.email@example.com'
+        });
+      }
+      return items;
+    };
+  </script>
+</body>
+</html>

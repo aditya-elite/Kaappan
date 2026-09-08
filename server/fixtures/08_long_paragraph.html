@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fixture 08 - Long Paragraph Precision</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px; line-height: 1.8; max-width: 700px; color: #334155; }
+  </style>
+</head>
+<body>
+  <h2>Privacy Notice & Disclosure</h2>
+  <p>
+    Welcome to our platform. We value your privacy and are committed to protecting your personal data.
+    If you have any questions regarding this policy or wish to exercise your data subject rights, please contact our Data Protection Officer at
+    <span data-pii="email">dpo.officer@enterprise.com</span> during regular business hours.
+    Our team reviews all compliance inquiries within two business days. Make sure to keep your account credentials safe and never share your passkeys with unverified third parties.
+  </p>
+
+  <script>
+    window.__groundTruth = function() {
+      const items = [];
+      document.querySelectorAll('[data-pii]').forEach(node => {
+        const category = node.getAttribute('data-pii');
+        const range = document.createRange();
+        range.selectNodeContents(node);
+        const clientRects = Array.from(range.getClientRects());
+        let rects = clientRects.map(r => ({ x: r.left, y: r.top, width: r.width, height: r.height }));
+        if (rects.length === 0) {
+          const r = node.getBoundingClientRect();
+          rects = [{ x: r.left, y: r.top, width: r.width, height: r.height }];
+        }
+        items.push({
+          category: category,
+          rects: rects,
+          text: node.innerText || ''
+        });
+      });
+      return items;
+    };
+  </script>
+</body>
+</html>

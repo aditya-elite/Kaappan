@@ -1,0 +1,24 @@
+﻿============================================================
+COMPANY HIRING & APPLICATION GUIDELINES FAQ
+============================================================
+
+1. What roles are currently open?
+   - Frontend Engineer (React, TypeScript)
+   - Backend Engineer (Python, FastAPI, Distributed Systems)
+   - Data Scientist (PyTorch, Machine Learning)
+   - Product Manager
+
+2. What is the standard interview timeline?
+   - Stage 1: Resume screening & initial application review (2-3 days).
+   - Stage 2: Technical assessment and live architecture review (45 mins).
+   - Stage 3: Culture fit and engineering team interview.
+   - Stage 4: Formal offer within 48 hours of final round.
+
+3. Are these roles remote?
+   - Yes, all engineering positions support 100% remote work globally with flexible working hours.
+
+4. What benefits are offered?
+   - Comprehensive health, dental, and vision insurance.
+   - Annual learning & conference stipend ($2,500).
+   - 401(k) retirement matching up to 5%.
+   - Unlimited Paid Time Off (PTO).

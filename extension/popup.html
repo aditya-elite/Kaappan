@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Kaappan — Control Center</title>
+  <style>
+    :root {
+      --bg: #0b1120;
+      --card-bg: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --primary: #0284c7;
+      --primary-hover: #0369a1;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --purple: #8b5cf6;
+    }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      width: 370px;
+      padding: 12px;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      box-sizing: border-box;
+    }
+    h1 {
+      font-size: 14px;
+      margin: 0 0 8px;
+      font-weight: 700;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    h2 { font-size: 11px; margin: 8px 0 4px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    textarea {
+      width: 100%;
+      height: 52px;
+      box-sizing: border-box;
+      background: var(--card-bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px;
+      font-size: 12px;
+      resize: vertical;
+    }
+    input[type=text], input[type=email], input[type=tel], input[type=number], input[type=file], select {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 6px 8px;
+      margin-bottom: 6px;
+      font-size: 11px;
+      background: var(--card-bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    button {
+      width: 100%;
+      padding: 7px 10px;
+      margin-top: 5px;
+      cursor: pointer;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 11px;
+      transition: background 0.15s;
+    }
+    button:hover { background: var(--primary-hover); }
+    button.secondary { background: var(--border); color: var(--text); font-weight: 500; }
+    button.secondary:hover { background: #475569; }
+    button.stop { background: #dc2626; }
+    button.stop:hover { background: #b91c1c; }
+    button.accent { background: #059669; }
+    button.accent:hover { background: #047857; }
+    
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 7px;
+      border-radius: 9999px;
+      font-size: 9.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .badge.ready { background: #064e3b; color: #34d399; }
+    .badge.running { background: #0c4a6e; color: #38bdf8; }
+    .badge.paused { background: #78350f; color: #fde68a; }
+    .badge.blocked { background: #881337; color: #fecdd3; }
+    .badge.err { background: #7f1d1d; color: #fca5a5; }
+    .badge.idle { background: #1e293b; color: #94a3b8; }
+    .badge.offline { background: #374151; color: #d1d5db; }
+    
+    /* Control Center Cards */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+    }
+    .card-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    /* Segmented Mode Selector */
+    .segmented-control {
+      display: flex;
+      background: #020617;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2px;
+      gap: 2px;
+      margin-bottom: 8px;
+    }
+    .segmented-btn {
+      flex: 1;
+      padding: 5px 0;
+      margin: 0;
+      background: transparent;
+      color: var(--muted);
+      border-radius: 4px;
+      font-size: 10.5px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+    }
+    .segmented-btn.active {
+      background: var(--primary);
+      color: white;
+    }
+    
+    /* Offline Demo Banner */
+    .offline-banner {
+      background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+      border: 1px solid #4338ca;
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+      font-size: 10.5px;
+    }
+    .offline-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      font-family: monospace;
+      font-size: 10px;
+      margin-top: 4px;
+      background: #020617;
+      padding: 6px;
+      border-radius: 4px;
+    }
+    
+    /* Step Progress Bar */
+    .progress-bar-bg {
+      background: #020617;
+      border-radius: 4px;
+      height: 6px;
+      overflow: hidden;
+      margin: 6px 0 4px;
+      border: 1px solid var(--border);
+    }
+    .progress-bar-fill {
+      background: linear-gradient(90deg, #38bdf8, #10b981);
+      height: 100%;
+      width: 0%;
+      transition: width 0.25s ease;
+    }
+    
+    /* Tag lists */
+    .tag-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 4px;
+      margin-bottom: 6px;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #020617;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 10px;
+      color: #cbd5e1;
+    }
+    .tag-del {
+      cursor: pointer;
+      color: #f87171;
+      font-weight: bold;
+    }
+    
+    /* Explainable Block Card */
+    .block-card {
+      background: #450a0a;
+      border: 1px solid #f87171;
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+      font-size: 11px;
+    }
+    
+    /* Action Approval Banner */
+    .approval-card {
+      background: #1c1917;
+      border: 1px solid #f43f5e;
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+      font-size: 11px;
+    }
+    
+    #log {
+      margin-top: 8px;
+      height: 105px;
+      overflow-y: auto;
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 10.5px;
+      padding: 6px;
+      white-space: pre-wrap;
+      color: #e2e8f0;
+    }
+    details {
+      margin-top: 8px;
+      border-top: 1px solid #1e293b;
+      padding-top: 6px;
+    }
+    summary {
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 600;
+      color: #cbd5e1;
+      outline: none;
+    }
+    .hint { font-size: 10.5px; color: var(--muted); margin: 3px 0 6px; line-height: 1.3; }
+    .btn-row { display: flex; gap: 6px; }
+    .btn-row button { flex: 1; }
+  </style>
+</head>
+<body>
+  <h1>
+    <span>🛡️ Kaappan <span style="font-size: 10px; font-weight: normal; color: #94a3b8;">Control Center</span></span>
+    <span style="display: flex; gap: 4px;">
+      <span id="backendStatus" class="badge idle">Server: …</span>
+      <span id="status" class="badge ready">Ready</span>
+    </span>
+  </h1>
+
+  <!-- Offline Demo Mode Banner -->
+  <div id="offlineBanner" class="offline-banner" style="display: none;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <strong style="color: #a5b4fc;">⚡ OFFLINE DEMO MODE ACTIVE</strong>
+      <span class="badge" style="background: #312e81; color: #c7d2fe;">Zero API Key</span>
+    </div>
+    <div class="offline-grid">
+      <div>AI API: <span style="color: #fca5a5;">DISABLED</span></div>
+      <div>Network: <span style="color: #6ee7b7;">NOT REQ</span></div>
+      <div>Vision: <span style="color: #6ee7b7;">LOCAL ✓</span></div>
+      <div>Privacy: <span style="color: #6ee7b7;">LOCAL ✓</span></div>
+      <div style="grid-column: span 2;">Reasoning: <span style="color: #93c5fd;">ON-DEVICE MOCK ✓</span></div>
+    </div>
+  </div>
+
+  <!-- Agent Modes Segmented Selector -->
+  <div class="card" style="padding: 6px 8px; margin-bottom: 6px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+      <span style="font-size: 10.5px; font-weight: 700; color: #94a3b8;">AGENT MODE</span>
+      <span id="modeDescription" style="font-size: 10px; color: #38bdf8;">Guarded (Auto-execute safe actions)</span>
+    </div>
+    <div class="segmented-control">
+      <div id="modeGuarded" class="segmented-btn active" title="Default: Validate safety and execute automatically">🛡️ Guarded</div>
+      <div id="modeSupervised" class="segmented-btn" title="Ask user approval for sensitive actions (submit, upload)">⚠️ Supervised</div>
+      <div id="modePreview" class="segmented-btn" title="Display proposed plan without executing actions">👁️ Preview</div>
+    </div>
+  </div>
+
+  <!-- Explainable Block Alert (Dynamic) -->
+  <div id="blockCard" class="block-card" style="display: none;">
+    <div style="font-weight: 700; color: #fca5a5; display: flex; align-items: center; gap: 4px; margin-bottom: 4px;">
+      <span>🛡️ ACTION BLOCKED</span>
+      <span id="blockPolicy" class="badge err" style="margin-left: auto;">Website Lock</span>
+    </div>
+    <div id="blockAction" style="font-family: monospace; font-size: 10px; color: #fecdd3; margin-bottom: 4px;"></div>
+    <div id="blockReason" style="font-size: 10.5px; color: #fca5a5; margin-bottom: 4px;"></div>
+    <div style="font-size: 9.5px; color: #cbd5e1;">Result: No browser action executed. No data transmitted.</div>
+  </div>
+
+  <!-- Capability Degradation Warning Alert (Dynamic) -->
+  <div id="degradedCard" class="block-card" style="display: none; background: #451a03; border-color: #f59e0b;">
+    <div style="font-weight: 700; color: #fcd34d; display: flex; align-items: center; gap: 4px; margin-bottom: 4px;">
+      <span>⚠️ CAPABILITY DEGRADED</span>
+      <span id="degradedBadge" class="badge warn" style="margin-left: auto; background: #78350f; color: #fde68a;">Warning</span>
+    </div>
+    <div id="degradedList" style="font-size: 10.5px; color: #fef3c7;"></div>
+  </div>
+
+  <!-- Supervised Mode Approval Prompt (Dynamic) -->
+  <div id="approvalCard" class="approval-card" style="display: none;">
+    <div style="font-weight: 700; color: #fda4af; display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+      <span>⚠️ ACTION APPROVAL REQUIRED</span>
+      <span id="approvalPolicy" class="badge" style="background: #be123c; color: white;">Sensitive Action</span>
+    </div>
+    <div id="approvalActionText" style="font-family: monospace; font-size: 10.5px; color: #ffe4e6; margin-bottom: 4px;"></div>
+    <div id="approvalReasonText" style="font-size: 10.5px; color: #fecdd3; margin-bottom: 6px;"></div>
+    <div class="btn-row">
+      <button id="btnApproveAction" class="accent" style="margin: 0; padding: 6px;">✓ Allow Action</button>
+      <button id="btnRejectAction" class="stop" style="margin: 0; padding: 6px;">✕ Reject Action</button>
+    </div>
+  </div>
+
+  <!-- Interactive User Input Prompt Panel -->
+  <div id="inputPromptPanel" style="display:none; background:#1e293b; border:1px solid #f59e0b; border-radius:6px; padding:8px; margin-bottom:8px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+      <span style="font-size:11px; font-weight:700; color:#f59e0b;">💬 Input Requested</span>
+      <span class="badge err" style="background:#78350f; color:#fde68a;">Action Needed</span>
+    </div>
+    <div id="inputPromptQuestion" style="font-size:10.5px; color:#f8fafc; margin-bottom:6px; line-height:1.3;"></div>
+    <div id="inputPromptFieldContainer"></div>
+    <div style="display:flex; align-items:center; gap:6px; margin:4px 0 6px;">
+      <input type="checkbox" id="inputPromptRemember" style="width:auto; margin:0;" checked />
+      <label for="inputPromptRemember" style="font-size:10.5px; color:#cbd5e1; cursor:pointer;">Remember for future runs</label>
+    </div>
+    <div class="btn-row">
+      <button id="inputPromptSubmit" style="margin:0; background:#0284c7; padding:5px 8px; font-size:10.5px;">Submit Value</button>
+      <button id="inputPromptSkip" class="secondary" style="margin:0; background:#475569; padding:5px 8px; font-size:10.5px;">Skip Field</button>
+    </div>
+  </div>
+
+  <!-- Task & Execution Control -->
+  <div class="card" style="margin-bottom: 6px;">
+    <div class="card-title">
+      <span>CURRENT TASK</span>
+      <span id="stepCounterText" style="font-family: monospace; font-size: 10px; color: #38bdf8;">Step 0 / 15</span>
+    </div>
+    <textarea id="task" placeholder="e.g. Fill out this form with my saved details and submit"></textarea>
+    
+    <div class="progress-bar-bg">
+      <div id="progressBarFill" class="progress-bar-fill"></div>
+    </div>
+
+    <div class="btn-row" style="margin-top: 6px;">
+      <button id="start" style="flex: 2;">▶ Start Agent</button>
+      <button id="pause" class="secondary" style="display: none; background: #b45309;">⏸ Pause</button>
+      <button id="resume" class="accent" style="display: none;">▶ Resume</button>
+      <button id="stop" class="stop" style="flex: 1;">■ Stop</button>
+    </div>
+
+    <div class="btn-row" style="margin-top: 4px;">
+      <button id="btnScanPage" class="secondary" style="background: #0f766e; color: #ccfbf1; font-weight: 600;">🔍 Local Privacy Scan</button>
+      <button id="btnToggleOffline" class="secondary" style="font-size: 10.5px;">⚡ Toggle Offline Demo</button>
+    </div>
+  </div>
+
+  <!-- Local Privacy Scan Result Card (Dynamic) -->
+  <div id="privacyScanCard" class="card" style="display: none; background: #042f2e; border-color: #14b8a6;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+      <span style="font-weight: 700; color: #5eead4; font-size: 11px;">✓ LOCAL PRIVACY SCAN COMPLETE</span>
+      <span class="badge" style="background: #134e4a; color: #a7f3d0;">Zero AI Calls</span>
+    </div>
+    <div style="font-size: 10.5px; color: #ccfbf1; line-height: 1.4;" id="privacyScanMetrics">
+      Scanned DOM, forms, and images.
+    </div>
+  </div>
+
+  <div id="log"></div>
+  <div id="stats" style="margin-top:4px; font-size:9.5px; color:#94a3b8;"></div>
+
+  <!-- Safety Controls & Limits -->
+  <details id="safetyDetails">
+    <summary>🔒 Safety Controls &amp; Website Lock</summary>
+    <div class="hint">Restrict automation to trusted domains, set max steps, and manage protected terms.</div>
+    
+    <label style="font-size: 10.5px; color: #cbd5e1; font-weight: 600;">Website Lock (Allowed Domains):</label>
+    <div style="display: flex; gap: 4px; margin-top: 2px;">
+      <input type="text" id="allowedDomainInput" placeholder="e.g. localhost, example.com" style="margin: 0;" />
+      <button id="btnAddDomain" class="secondary" style="width: auto; margin: 0; padding: 5px 8px;">+ Add</button>
+    </div>
+    <div id="allowedDomainsList" class="tag-container"></div>
+
+    <div style="display: flex; gap: 8px; margin-top: 6px;">
+      <div style="flex: 1;">
+        <label style="font-size: 10.5px; color: #cbd5e1; font-weight: 600;">Max Steps:</label>
+        <input type="number" id="maxStepsInput" min="1" max="50" value="15" style="margin: 2px 0 0;" />
+      </div>
+      <div style="flex: 1;">
+        <label style="font-size: 10.5px; color: #cbd5e1; font-weight: 600;">Timeout (sec):</label>
+        <input type="number" id="maxRuntimeInput" min="10" max="600" value="120" style="margin: 2px 0 0;" />
+      </div>
+    </div>
+
+    <label style="font-size: 10.5px; color: #cbd5e1; font-weight: 600; margin-top: 6px; display: block;">Protected Terms (Redacted locally on-device):</label>
+    <div style="display: flex; gap: 4px; margin-top: 2px;">
+      <input type="text" id="protectedTermInput" placeholder="e.g. Project Phoenix, Confidential" style="margin: 0;" />
+      <button id="btnAddTerm" class="secondary" style="width: auto; margin: 0; padding: 5px 8px;">+ Add</button>
+    </div>
+    <div id="protectedTermsList" class="tag-container"></div>
+  </details>
+
+  <!-- Run History & JSON Export -->
+  <details id="historyDetails">
+    <summary>📜 Run History &amp; Evidence Export</summary>
+    <div class="hint">Audit log of recent agent executions (strictly zero PII or raw images saved).</div>
+    <div id="runHistoryContainer" style="max-height: 140px; overflow-y: auto; margin-bottom: 6px; font-size: 10.5px;"></div>
+    <div class="btn-row">
+      <button id="btnExportRunHistory" class="secondary" style="background: #0284c7; color: white;">📥 Export Run History (JSON)</button>
+      <button id="btnClearRunHistory" class="secondary">Clear History</button>
+    </div>
+  </details>
+
+  <!-- Redaction Transparency Viewer Link -->
+  <button id="openViewer" class="secondary" style="margin-top:6px; background:#1e293b; border: 1px solid #334155; color:#38bdf8;">🔍 Open Redaction Viewer (Side-by-Side &amp; Split Slider)</button>
+
+  <!-- A1: Judge Mode Acceptance Dashboard -->
+  <details id="judgeDetails">
+    <summary>🏆 Judge Mode — Verification Dashboard</summary>
+    <p class="hint" id="judgeHint">No run recorded yet — start a task, then refresh.</p>
+    <div style="margin-top:4px;">
+      <div class="checklist-item"><span id="chkDOM" class="check-icon idle">—</span> <span>DOM PII regions detected &amp; redacted</span></div>
+      <div class="checklist-item"><span id="chkVision" class="check-icon idle">—</span> <span>Local ONNX vision model ran on-device</span></div>
+      <div class="checklist-item"><span id="chkGate" class="check-icon idle">—</span> <span>Privacy gate verified pixels before send</span></div>
+      <div class="checklist-item"><span id="chkVal" class="check-icon idle">—</span> <span>Action allowlist validator enforced</span></div>
+      <div class="checklist-item"><span id="chkToken" class="check-icon idle">—</span> <span>No raw field values transmitted</span></div>
+    </div>
+    <button id="refreshJudge" class="secondary" style="margin-top: 4px;">Refresh from last run</button>
+  </details>
+
+  <!-- A5: Privacy Policy Configurator -->
+  <details id="policyDetails">
+    <summary>⚙️ Server Secret &amp; Policy Thresholds</summary>
+    <p class="hint">Adjust confidence floors and fail-closed enforcement thresholds.</p>
+    <label style="font-size:10.5px; color:#cbd5e1;">Enforcement Mode:</label>
+    <select id="policySelect" style="margin-top: 2px;">
+      <option value="strict">Strict (85% Confidence Floor - Zero Risk)</option>
+      <option value="balanced" selected>Balanced (60% Confidence Floor - Recommended)</option>
+      <option value="permissive">Permissive (30% Confidence Floor - Best Effort)</option>
+    </select>
+
+    <h2 style="margin-top:6px;">Server request secret</h2>
+    <div id="secretBox" style="font-family: monospace; font-size: 10px; background:#020617; border:1px solid #334155; border-radius:4px; padding:5px; color:#38bdf8; word-break:break-all;">loading…</div>
+    <button id="copySecret" class="secondary" style="margin-top: 4px;">Copy secret</button>
+  </details>
+
+  <!-- A2: Built-in Network Inspector -->
+  <details id="netDetails">
+    <summary>🔍 Network Payload Inspector</summary>
+    <p class="hint">Inspect exact JSON payload sent to decision server — redacted screenshot included.</p>
+    <button id="refreshNet" class="secondary">Refresh Last Payload</button>
+    <img id="netThumb" style="width: 100%; height: 80px; object-fit: contain; background: #000; border-radius: 4px; border: 1px solid #334155; margin-top: 4px; display: none;" />
+    <pre id="netJson" style="font-size:9.5px; background:#020617; padding:5px; overflow:auto; max-height:90px; border-radius:4px; border:1px solid #334155; color:#38bdf8; margin-top:4px; display:none;"></pre>
+  </details>
+
+  <!-- G4 & G5: Export Audit Trail & Benchmark Reports -->
+  <details id="exportDetails">
+    <summary>📊 Export Audit Trail &amp; Benchmark</summary>
+    <button id="runBenchmark" class="secondary" style="background:#0284c7; color:white; font-weight:600;">🚀 Run Privacy Benchmark (14 Fixtures)</button>
+    <button id="exportAudit" class="secondary">📥 Export Audit Trail (JSON)</button>
+  </details>
+
+  <!-- Attached Files -->
+  <details id="docsDetails">
+    <summary>📁 Attached Files for Forms &amp; Uploads</summary>
+    <p class="hint">Stored in local IndexedDB. <strong>File bytes never leave your device.</strong> Server only sees labels.</p>
+    <div style="display: flex; gap: 4px; margin-top: 4px;">
+      <input type="text" id="fileLabel" placeholder="Label (e.g. resume, photo)" style="flex: 1; margin: 0; font-size: 11px;" />
+      <label for="fileUploadInput" class="secondary" style="margin: 0; padding: 5px 8px; font-size: 11px; cursor: pointer; display: inline-block; background: #334155; border-radius: 4px; color: white; white-space: nowrap;">Attach</label>
+      <input type="file" id="fileUploadInput" multiple style="display: none;" />
+    </div>
+    <div id="fileUploadStatus" class="hint"></div>
+    <div id="userFilesList" style="margin: 6px 0; font-size: 10.5px; max-height: 100px; overflow-y: auto;"></div>
+    <button id="clearAllFilesBtn" class="secondary">Remove all attached files</button>
+  </details>
+
+  <!-- Saved Profile -->
+  <details id="profileDetails">
+    <summary>👤 Saved Profile (Autofill)</summary>
+    <input type="text" id="profileName" placeholder="Full name" />
+    <input type="email" id="profileEmail" placeholder="Email" />
+    <input type="tel" id="profilePhone" placeholder="Phone" />
+    <button id="saveProfile" class="secondary" style="margin-top: 4px;">Save Profile</button>
+    <div id="profileStatus" class="hint"></div>
+  </details>
+
+  <script src="sample_photo.js"></script>
+  <script src="storage.js"></script>
+  <script src="policy_engine.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

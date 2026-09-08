@@ -1,0 +1,34 @@
+﻿============================================================
+APPLICANT RESUME / REFERENCE PROFILE
+============================================================
+
+Name: Jane Doe
+Target Role: Backend Engineer
+Location: San Francisco, CA
+Email: jane.doe.developer@example.com
+Phone: +1 (555) 234-5678
+
+PROFESSIONAL SUMMARY
+Senior Software Engineer with 5+ years of experience building high-scale distributed backend systems, REST/GraphQL APIs, and cloud-native microservices. Experienced in Python, FastAPI, TypeScript, Node.js, and PostgreSQL.
+
+SKILLS & EXPERTISE
+- Programming Languages: Python, TypeScript, Go, SQL
+- Frameworks & Tools: FastAPI, Django, Docker, Kubernetes, ONNX Runtime
+- Databases: PostgreSQL, Redis, MongoDB
+- Cloud & DevOps: AWS (EC2, S3, Lambda), GCP, CI/CD pipelines
+- Architecture: Microservices, Event-Driven Architecture, Zero-Trust Security
+
+WORK EXPERIENCE
+Senior Backend Engineer — TechCorp Innovations (2022 - Present)
+- Architected high-throughput data pipelines processing over 10M events daily with 99.99% uptime.
+- Led migration of legacy monolith to FastAPI microservices, reducing API response latency by 45%.
+- Implemented automated PII redaction and compliance audits adhering to GDPR and HIPAA standards.
+
+Software Engineer — CloudScale Systems (2019 - 2022)
+- Developed secure OAuth2 and JWT authentication services for enterprise web applications.
+- Optimized database indexing and caching strategies in Redis, cutting query times by 60%.
+
+EDUCATION
+B.S. in Computer Science — University of California, Berkeley (2015 - 2019)
+- Graduated Magna Cum Laude
+- Coursework: Distributed Systems, Operating Systems, Database Internals, Machine Learning

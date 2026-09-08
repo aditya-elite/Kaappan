@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fixture 06 - Shadow DOM</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 20px; }
+  </style>
+</head>
+<body>
+  <h2>Web Component with Shadow DOM</h2>
+  <div id="shadowHost"></div>
+
+  <script>
+    const host = document.getElementById('shadowHost');
+    const shadow = host.attachShadow({ mode: 'open' });
+    shadow.innerHTML = `
+      <style>
+        .shadow-box { padding: 15px; border: 1px solid #6366f1; background: #e0e7ff; border-radius: 6px; }
+      </style>
+      <div class="shadow-box">
+        <h3>Shadow DOM Component</h3>
+        <p>Email: <span data-pii="email">shadow.user@example.com</span></p>
+        <p>Aadhaar: <span data-pii="aadhaar">9988 7766 5544</span></p>
+      </div>
+    `;
+
+    window.__groundTruth = function() {
+      const items = [];
+      if (host.shadowRoot) {
+        host.shadowRoot.querySelectorAll('[data-pii]').forEach(node => {
+          const category = node.getAttribute('data-pii');
+          const range = document.createRange();
+          range.selectNodeContents(node);
+          const clientRects = Array.from(range.getClientRects());
+          let rects = clientRects.map(r => ({ x: r.left, y: r.top, width: r.width, height: r.height }));
+          if (rects.length === 0) {
+            const r = node.getBoundingClientRect();
+            rects = [{ x: r.left, y: r.top, width: r.width, height: r.height }];
+          }
+          items.push({
+            category: category,
+            rects: rects,
+            text: node.innerText || ''
+          });
+        });
+      }
+      return items;
+    };
+  </script>
+</body>
+</html>

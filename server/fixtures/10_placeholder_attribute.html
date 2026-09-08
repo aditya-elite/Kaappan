@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fixture 10 - PII in Placeholder Attribute</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 20px; }
+    .field { margin-bottom: 15px; max-width: 400px; }
+    input { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h2>Registration Form with Placeholders</h2>
+  <div class="field">
+    <label>Email Address</label>
+    <input type="text" placeholder="e.g. user.placeholder@example.com" data-pii="email">
+  </div>
+  <div class="field">
+    <label>Mobile Number</label>
+    <input type="text" placeholder="e.g. +91 91234 56789" data-pii="phone">
+  </div>
+
+  <script>
+    window.__groundTruth = function() {
+      const items = [];
+      document.querySelectorAll('[data-pii]').forEach(node => {
+        const category = node.getAttribute('data-pii');
+        const r = node.getBoundingClientRect();
+        items.push({
+          category: category,
+          rects: [{ x: r.left, y: r.top, width: r.width, height: r.height }],
+          text: node.getAttribute('placeholder') || node.value || ''
+        });
+      });
+      return items;
+    };
+  </script>
+</body>
+</html>

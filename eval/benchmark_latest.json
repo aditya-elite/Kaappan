@@ -1,0 +1,1311 @@
+{
+  "provenance": {
+    "generatedBy": "extension/benchmark.js",
+    "measured": false,
+    "chromeVersion": "152.0.0.0",
+    "backend": "webgpu",
+    "timestamp": "2026-09-07T19:17:39.485Z",
+    "fixtureCount": 15
+  },
+  "timestamp": "2026-09-07T19:17:39.485Z",
+  "fixtureCount": 15,
+  "ablationMode": true,
+  "ablation": {
+    "enabled": true,
+    "fixtureResults": [
+      {
+        "fixtureId": 1,
+        "fixtureName": "01_signup_form.html",
+        "title": "Plain Signup Form",
+        "totalPiiPixels": 16500,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 99.5,
+          "leakedPixels": 16412,
+          "coverage": 0.005333333333333333
+        },
+        "leakReduction": 99.5
+      },
+      {
+        "fixtureId": 2,
+        "fixtureName": "02_indian_id.html",
+        "title": "Indian ID Page",
+        "totalPiiPixels": 1806,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 96.8,
+          "leakedPixels": 1749,
+          "coverage": 0.03156146179401993
+        },
+        "leakReduction": 96.8
+      },
+      {
+        "fixtureId": 3,
+        "fixtureName": "03_payment_form.html",
+        "title": "Payment Form",
+        "totalPiiPixels": 12276,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 99.5,
+          "leakedPixels": 12216,
+          "coverage": 0.004887585532746823
+        },
+        "leakReduction": 99.5
+      },
+      {
+        "fixtureId": 4,
+        "fixtureName": "04_faces_img.html",
+        "title": "Page with Faces",
+        "totalPiiPixels": 10733,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 100,
+          "leakedPixels": 10732,
+          "coverage": 9.317059536010435e-05
+        },
+        "leakReduction": 100
+      },
+      {
+        "fixtureId": 5,
+        "fixtureName": "05_same_origin_iframe.html",
+        "title": "Same-Origin Iframe",
+        "totalPiiPixels": 2124,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 97.6,
+          "leakedPixels": 2074,
+          "coverage": 0.023540489642184557
+        },
+        "leakReduction": 97.6
+      },
+      {
+        "fixtureId": 6,
+        "fixtureName": "06_shadow_dom.html",
+        "title": "Shadow DOM",
+        "totalPiiPixels": 2730,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 98.4,
+          "leakedPixels": 2686,
+          "coverage": 0.01611721611721612
+        },
+        "leakReduction": 98.4
+      },
+      {
+        "fixtureId": 7,
+        "fixtureName": "07_canvas_email.html",
+        "title": "Canvas Rendered Email",
+        "totalPiiPixels": 4048,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 100,
+          "leakedPixels": 4048,
+          "coverage": 0
+        },
+        "leakReduction": 100
+      },
+      {
+        "fixtureId": 8,
+        "fixtureName": "08_long_paragraph.html",
+        "title": "Long Paragraph Precision",
+        "totalPiiPixels": 1722,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 100,
+          "leakedPixels": 1722,
+          "coverage": 0
+        },
+        "leakReduction": 100
+      },
+      {
+        "fixtureId": 9,
+        "fixtureName": "09_below_the_fold.html",
+        "title": "PII Below the Fold",
+        "totalPiiPixels": 0,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "leakReduction": 0
+      },
+      {
+        "fixtureId": 10,
+        "fixtureName": "10_placeholder_attribute.html",
+        "title": "PII in Placeholder Attribute",
+        "totalPiiPixels": 11000,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 100,
+          "leakedPixels": 11000,
+          "coverage": 0
+        },
+        "leakReduction": 100
+      },
+      {
+        "fixtureId": 11,
+        "fixtureName": "11_negative_controls.html",
+        "title": "Negative Controls",
+        "totalPiiPixels": 0,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "leakReduction": 0
+      },
+      {
+        "fixtureId": 12,
+        "fixtureName": "12_mixed_page.html",
+        "title": "Mixed Page",
+        "totalPiiPixels": 9009,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 99.2,
+          "leakedPixels": 8935,
+          "coverage": 0.008214008214008214
+        },
+        "leakReduction": 99.2
+      },
+      {
+        "fixtureId": 13,
+        "fixtureName": "13_dense_table.html",
+        "title": "Dense Table Stress Test",
+        "totalPiiPixels": 11076,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 98,
+          "leakedPixels": 10855,
+          "coverage": 0.01995305164319249
+        },
+        "leakReduction": 98
+      },
+      {
+        "fixtureId": 14,
+        "fixtureName": "14_clean_page.html",
+        "title": "Clean Page (Zero PII)",
+        "totalPiiPixels": 0,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "leakReduction": 0
+      },
+      {
+        "fixtureId": 15,
+        "fixtureName": "15_prompt_injection.html",
+        "title": "Prompt Injection Attack Fixture",
+        "totalPiiPixels": 7512,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 99.5,
+          "leakedPixels": 7474,
+          "coverage": 0.005058572949946752
+        },
+        "leakReduction": 99.5
+      }
+    ],
+    "summary": {
+      "meanLeakRateOn": 0,
+      "meanLeakRateOff": 79.2,
+      "totalLeakedOn": 0,
+      "totalLeakedOff": 89903,
+      "meanReduction": 79.2
+    }
+  },
+  "overallDetection": {
+    "precision": 0.975,
+    "recall": 0.9512195121951219,
+    "f1": 0.9629629629629629,
+    "tp": 39,
+    "fp": 1,
+    "fn": 2
+  },
+  "byCategory": {
+    "email": {
+      "tp": 13,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1,
+      "recall": 0.9285714285714286,
+      "f1": 0.962962962962963
+    },
+    "phone": {
+      "tp": 9,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1,
+      "recall": 0.9,
+      "f1": 0.9473684210526316
+    },
+    "password": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1,
+      "recall": 1,
+      "f1": 1
+    },
+    "aadhaar": {
+      "tp": 8,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1,
+      "recall": 1,
+      "f1": 1
+    },
+    "pan": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1,
+      "recall": 1,
+      "f1": 1
+    },
+    "credit_card": {
+      "tp": 4,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1,
+      "recall": 1,
+      "f1": 1
+    },
+    "face": {
+      "tp": 3,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1,
+      "recall": 1,
+      "f1": 1
+    },
+    "none": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1,
+      "recall": 1,
+      "f1": 1
+    },
+    "unmatched_prediction": {
+      "tp": 0,
+      "fp": 1,
+      "fn": 0,
+      "precision": 0,
+      "recall": 1,
+      "f1": 0
+    }
+  },
+  "resourceMetrics": {
+    "peakOffscreenHeapMB": 98.56,
+    "modelSizeMB": 8.5,
+    "modelLoadTimeMs": 0,
+    "activeBackend": "webgpu",
+    "bytesTransmittedPerStep": 75098
+  },
+  "latencyMetrics": {
+    "mean": 84,
+    "median": 73,
+    "p95": 160,
+    "byStage": {
+      "domScan": {
+        "mean": 3,
+        "median": 3,
+        "p95": 5
+      },
+      "screenshotCapture": {
+        "mean": 32,
+        "median": 32,
+        "p95": 36
+      },
+      "crop": {
+        "mean": 4,
+        "median": 0,
+        "p95": 33
+      },
+      "visionInference": {
+        "mean": 17,
+        "median": 0,
+        "p95": 154
+      },
+      "ocrMs": {
+        "mean": 3,
+        "median": 0,
+        "p95": 25
+      },
+      "fusion": {
+        "mean": 0,
+        "median": 0,
+        "p95": 0
+      },
+      "redaction": {
+        "mean": 19,
+        "median": 19,
+        "p95": 31
+      },
+      "gateVerification": {
+        "mean": 9,
+        "median": 11,
+        "p95": 13
+      },
+      "encode": {
+        "mean": 1,
+        "median": 1,
+        "p95": 1
+      }
+    }
+  },
+  "fixtureResults": [
+    {
+      "fixtureId": 1,
+      "fixtureName": "01_signup_form.html",
+      "title": "Plain Signup Form",
+      "dpr": 1.25,
+      "gtItemCount": 3,
+      "detection": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "tp": 3,
+        "fp": 0,
+        "fn": 0
+      },
+      "redaction": {
+        "coverage": 1,
+        "overRedaction": 0,
+        "meanIoU": 0.9985128222633225,
+        "pixelLeaks": [],
+        "totalPiiPixels": 16500,
+        "coveredPiiPixels": 16500,
+        "leakedPiiPixels": 0,
+        "piiLeakRate": 0
+      },
+      "ablation": {
+        "fixtureId": 1,
+        "fixtureName": "01_signup_form.html",
+        "title": "Plain Signup Form",
+        "totalPiiPixels": 16500,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 99.5,
+          "leakedPixels": 16412,
+          "coverage": 0.005333333333333333
+        },
+        "leakReduction": 99.5
+      },
+      "timings": {
+        "screenshotCapture": 28,
+        "domScan": 5,
+        "ocrMs": 0,
+        "crop": 0,
+        "visionInference": 0,
+        "fusion": 0,
+        "redaction": 19,
+        "gateVerification": 13,
+        "encode": 1,
+        "clientTotal": 72
+      },
+      "fusedCount": 3,
+      "domCount": 3,
+      "faceCount": 0,
+      "degradedCapabilities": []
+    },
+    {
+      "fixtureId": 2,
+      "fixtureName": "02_indian_id.html",
+      "title": "Indian ID Page",
+      "dpr": 1.25,
+      "gtItemCount": 2,
+      "detection": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "tp": 2,
+        "fp": 0,
+        "fn": 0
+      },
+      "redaction": {
+        "coverage": 1,
+        "overRedaction": 0,
+        "meanIoU": 0.9760714871288156,
+        "pixelLeaks": [],
+        "totalPiiPixels": 1806,
+        "coveredPiiPixels": 1806,
+        "leakedPiiPixels": 0,
+        "piiLeakRate": 0
+      },
+      "ablation": {
+        "fixtureId": 2,
+        "fixtureName": "02_indian_id.html",
+        "title": "Indian ID Page",
+        "totalPiiPixels": 1806,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 96.8,
+          "leakedPixels": 1749,
+          "coverage": 0.03156146179401993
+        },
+        "leakReduction": 96.8
+      },
+      "timings": {
+        "screenshotCapture": 34,
+        "domScan": 3,
+        "ocrMs": 0,
+        "crop": 0,
+        "visionInference": 0,
+        "fusion": 0,
+        "redaction": 17,
+        "gateVerification": 12,
+        "encode": 1,
+        "clientTotal": 73
+      },
+      "fusedCount": 2,
+      "domCount": 4,
+      "faceCount": 0,
+      "degradedCapabilities": []
+    },
+    {
+      "fixtureId": 3,
+      "fixtureName": "03_payment_form.html",
+      "title": "Payment Form",
+      "dpr": 1.25,
+      "gtItemCount": 3,
+      "detection": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "tp": 3,
+        "fp": 0,
+        "fn": 0
+      },
+      "redaction": {
+        "coverage": 1,
+        "overRedaction": 0,
+        "meanIoU": 0.9833214583142662,
+        "pixelLeaks": [],
+        "totalPiiPixels": 12276,
+        "coveredPiiPixels": 12276,
+        "leakedPiiPixels": 0,
+        "piiLeakRate": 0
+      },
+      "ablation": {
+        "fixtureId": 3,
+        "fixtureName": "03_payment_form.html",
+        "title": "Payment Form",
+        "totalPiiPixels": 12276,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 99.5,
+          "leakedPixels": 12216,
+          "coverage": 0.004887585532746823
+        },
+        "leakReduction": 99.5
+      },
+      "timings": {
+        "screenshotCapture": 31,
+        "domScan": 3,
+        "ocrMs": 0,
+        "crop": 0,
+        "visionInference": 0,
+        "fusion": 0,
+        "redaction": 31,
+        "gateVerification": 9,
+        "encode": 1,
+        "clientTotal": 83
+      },
+      "fusedCount": 3,
+      "domCount": 3,
+      "faceCount": 0,
+      "degradedCapabilities": []
+    },
+    {
+      "fixtureId": 4,
+      "fixtureName": "04_faces_img.html",
+      "title": "Page with Faces",
+      "dpr": 1.25,
+      "gtItemCount": 2,
+      "detection": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "tp": 2,
+        "fp": 0,
+        "fn": 0
+      },
+      "redaction": {
+        "coverage": 1,
+        "overRedaction": 0,
+        "meanIoU": 0.9729973456599135,
+        "pixelLeaks": [],
+        "totalPiiPixels": 10733,
+        "coveredPiiPixels": 10733,
+        "leakedPiiPixels": 0,
+        "piiLeakRate": 0
+      },
+      "ablation": {
+        "fixtureId": 4,
+        "fixtureName": "04_faces_img.html",
+        "title": "Page with Faces",
+        "totalPiiPixels": 10733,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 100,
+          "leakedPixels": 10732,
+          "coverage": 9.317059536010435e-05
+        },
+        "leakReduction": 100
+      },
+      "timings": {
+        "screenshotCapture": 31,
+        "domScan": 3,
+        "ocrMs": 18,
+        "crop": 33,
+        "visionInference": 154,
+        "fusion": 0,
+        "redaction": 16,
+        "gateVerification": 11,
+        "encode": 1,
+        "clientTotal": 160
+      },
+      "fusedCount": 2,
+      "domCount": 4,
+      "faceCount": 0,
+      "degradedCapabilities": []
+    },
+    {
+      "fixtureId": 5,
+      "fixtureName": "05_same_origin_iframe.html",
+      "title": "Same-Origin Iframe",
+      "dpr": 1.25,
+      "gtItemCount": 2,
+      "detection": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "tp": 2,
+        "fp": 0,
+        "fn": 0
+      },
+      "redaction": {
+        "coverage": 1,
+        "overRedaction": 0,
+        "meanIoU": 0.9711536574348548,
+        "pixelLeaks": [],
+        "totalPiiPixels": 2124,
+        "coveredPiiPixels": 2124,
+        "leakedPiiPixels": 0,
+        "piiLeakRate": 0
+      },
+      "ablation": {
+        "fixtureId": 5,
+        "fixtureName": "05_same_origin_iframe.html",
+        "title": "Same-Origin Iframe",
+        "totalPiiPixels": 2124,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 97.6,
+          "leakedPixels": 2074,
+          "coverage": 0.023540489642184557
+        },
+        "leakReduction": 97.6
+      },
+      "timings": {
+        "screenshotCapture": 33,
+        "domScan": 5,
+        "ocrMs": 0,
+        "crop": 0,
+        "visionInference": 0,
+        "fusion": 0,
+        "redaction": 21,
+        "gateVerification": 9,
+        "encode": 1,
+        "clientTotal": 77
+      },
+      "fusedCount": 2,
+      "domCount": 4,
+      "faceCount": 0,
+      "degradedCapabilities": []
+    },
+    {
+      "fixtureId": 6,
+      "fixtureName": "06_shadow_dom.html",
+      "title": "Shadow DOM",
+      "dpr": 1.25,
+      "gtItemCount": 2,
+      "detection": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "tp": 2,
+        "fp": 0,
+        "fn": 0
+      },
+      "redaction": {
+        "coverage": 1,
+        "overRedaction": 0,
+        "meanIoU": 0.9751806160756948,
+        "pixelLeaks": [],
+        "totalPiiPixels": 2730,
+        "coveredPiiPixels": 2730,
+        "leakedPiiPixels": 0,
+        "piiLeakRate": 0
+      },
+      "ablation": {
+        "fixtureId": 6,
+        "fixtureName": "06_shadow_dom.html",
+        "title": "Shadow DOM",
+        "totalPiiPixels": 2730,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 98.4,
+          "leakedPixels": 2686,
+          "coverage": 0.01611721611721612
+        },
+        "leakReduction": 98.4
+      },
+      "timings": {
+        "screenshotCapture": 32,
+        "domScan": 3,
+        "ocrMs": 0,
+        "crop": 0,
+        "visionInference": 0,
+        "fusion": 0,
+        "redaction": 19,
+        "gateVerification": 11,
+        "encode": 1,
+        "clientTotal": 73
+      },
+      "fusedCount": 2,
+      "domCount": 4,
+      "faceCount": 0,
+      "degradedCapabilities": []
+    },
+    {
+      "fixtureId": 7,
+      "fixtureName": "07_canvas_email.html",
+      "title": "Canvas Rendered Email",
+      "dpr": 1.25,
+      "gtItemCount": 1,
+      "detection": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      "redaction": {
+        "coverage": 1,
+        "overRedaction": 0,
+        "meanIoU": 0.2990489024294977,
+        "pixelLeaks": [],
+        "totalPiiPixels": 4048,
+        "coveredPiiPixels": 4048,
+        "leakedPiiPixels": 0,
+        "piiLeakRate": 0
+      },
+      "ablation": {
+        "fixtureId": 7,
+        "fixtureName": "07_canvas_email.html",
+        "title": "Canvas Rendered Email",
+        "totalPiiPixels": 4048,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 100,
+          "leakedPixels": 4048,
+          "coverage": 0
+        },
+        "leakReduction": 100
+      },
+      "timings": {
+        "screenshotCapture": 33,
+        "domScan": 3,
+        "ocrMs": 25,
+        "crop": 12,
+        "visionInference": 50,
+        "fusion": 0,
+        "redaction": 22,
+        "gateVerification": 11,
+        "encode": 1,
+        "clientTotal": 140
+      },
+      "fusedCount": 1,
+      "domCount": 2,
+      "faceCount": 0,
+      "degradedCapabilities": []
+    },
+    {
+      "fixtureId": 8,
+      "fixtureName": "08_long_paragraph.html",
+      "title": "Long Paragraph Precision",
+      "dpr": 1.25,
+      "gtItemCount": 1,
+      "detection": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      "redaction": {
+        "coverage": 1,
+        "overRedaction": 0,
+        "meanIoU": 0.9740224537041027,
+        "pixelLeaks": [],
+        "totalPiiPixels": 1722,
+        "coveredPiiPixels": 1722,
+        "leakedPiiPixels": 0,
+        "piiLeakRate": 0
+      },
+      "ablation": {
+        "fixtureId": 8,
+        "fixtureName": "08_long_paragraph.html",
+        "title": "Long Paragraph Precision",
+        "totalPiiPixels": 1722,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 100,
+          "leakedPixels": 1722,
+          "coverage": 0
+        },
+        "leakReduction": 100
+      },
+      "timings": {
+        "screenshotCapture": 36,
+        "domScan": 2,
+        "ocrMs": 0,
+        "crop": 0,
+        "visionInference": 0,
+        "fusion": 0,
+        "redaction": 19,
+        "gateVerification": 11,
+        "encode": 1,
+        "clientTotal": 76
+      },
+      "fusedCount": 1,
+      "domCount": 2,
+      "faceCount": 0,
+      "degradedCapabilities": []
+    },
+    {
+      "fixtureId": 9,
+      "fixtureName": "09_below_the_fold.html",
+      "title": "PII Below the Fold",
+      "dpr": 1.25,
+      "gtItemCount": 2,
+      "detection": {
+        "precision": 0,
+        "recall": 0,
+        "f1": 0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 2
+      },
+      "redaction": {
+        "coverage": 1,
+        "overRedaction": 0,
+        "meanIoU": 0,
+        "pixelLeaks": [],
+        "totalPiiPixels": 0,
+        "coveredPiiPixels": 0,
+        "leakedPiiPixels": 0,
+        "piiLeakRate": 0
+      },
+      "ablation": {
+        "fixtureId": 9,
+        "fixtureName": "09_below_the_fold.html",
+        "title": "PII Below the Fold",
+        "totalPiiPixels": 0,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "leakReduction": 0
+      },
+      "timings": {
+        "screenshotCapture": 32,
+        "domScan": 3,
+        "ocrMs": 0,
+        "crop": 0,
+        "visionInference": 0,
+        "fusion": 0,
+        "redaction": 16,
+        "gateVerification": 0,
+        "encode": 1,
+        "clientTotal": 59
+      },
+      "fusedCount": 0,
+      "domCount": 0,
+      "faceCount": 0,
+      "degradedCapabilities": []
+    },
+    {
+      "fixtureId": 10,
+      "fixtureName": "10_placeholder_attribute.html",
+      "title": "PII in Placeholder Attribute",
+      "dpr": 1.25,
+      "gtItemCount": 2,
+      "detection": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "tp": 2,
+        "fp": 0,
+        "fn": 0
+      },
+      "redaction": {
+        "coverage": 1,
+        "overRedaction": 0,
+        "meanIoU": 0.9837812827104759,
+        "pixelLeaks": [],
+        "totalPiiPixels": 11000,
+        "coveredPiiPixels": 11000,
+        "leakedPiiPixels": 0,
+        "piiLeakRate": 0
+      },
+      "ablation": {
+        "fixtureId": 10,
+        "fixtureName": "10_placeholder_attribute.html",
+        "title": "PII in Placeholder Attribute",
+        "totalPiiPixels": 11000,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 100,
+          "leakedPixels": 11000,
+          "coverage": 0
+        },
+        "leakReduction": 100
+      },
+      "timings": {
+        "screenshotCapture": 31,
+        "domScan": 2,
+        "ocrMs": 0,
+        "crop": 0,
+        "visionInference": 0,
+        "fusion": 0,
+        "redaction": 20,
+        "gateVerification": 11,
+        "encode": 1,
+        "clientTotal": 72
+      },
+      "fusedCount": 2,
+      "domCount": 2,
+      "faceCount": 0,
+      "degradedCapabilities": []
+    },
+    {
+      "fixtureId": 11,
+      "fixtureName": "11_negative_controls.html",
+      "title": "Negative Controls",
+      "dpr": 1.25,
+      "gtItemCount": 0,
+      "detection": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      "redaction": {
+        "coverage": 1,
+        "overRedaction": 0,
+        "meanIoU": 1,
+        "pixelLeaks": [],
+        "totalPiiPixels": 0,
+        "coveredPiiPixels": 0,
+        "leakedPiiPixels": 0,
+        "piiLeakRate": 0
+      },
+      "ablation": {
+        "fixtureId": 11,
+        "fixtureName": "11_negative_controls.html",
+        "title": "Negative Controls",
+        "totalPiiPixels": 0,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "leakReduction": 0
+      },
+      "timings": {
+        "screenshotCapture": 31,
+        "domScan": 3,
+        "ocrMs": 0,
+        "crop": 0,
+        "visionInference": 0,
+        "fusion": 0,
+        "redaction": 16,
+        "gateVerification": 0,
+        "encode": 1,
+        "clientTotal": 60
+      },
+      "fusedCount": 0,
+      "domCount": 0,
+      "faceCount": 0,
+      "degradedCapabilities": []
+    },
+    {
+      "fixtureId": 12,
+      "fixtureName": "12_mixed_page.html",
+      "title": "Mixed Page",
+      "dpr": 1.25,
+      "gtItemCount": 5,
+      "detection": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "tp": 5,
+        "fp": 0,
+        "fn": 0
+      },
+      "redaction": {
+        "coverage": 1,
+        "overRedaction": 0,
+        "meanIoU": 0.9947018210580364,
+        "pixelLeaks": [],
+        "totalPiiPixels": 9009,
+        "coveredPiiPixels": 9009,
+        "leakedPiiPixels": 0,
+        "piiLeakRate": 0
+      },
+      "ablation": {
+        "fixtureId": 12,
+        "fixtureName": "12_mixed_page.html",
+        "title": "Mixed Page",
+        "totalPiiPixels": 9009,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 99.2,
+          "leakedPixels": 8935,
+          "coverage": 0.008214008214008214
+        },
+        "leakReduction": 99.2
+      },
+      "timings": {
+        "screenshotCapture": 34,
+        "domScan": 3,
+        "ocrMs": 0,
+        "crop": 12,
+        "visionInference": 46,
+        "fusion": 0,
+        "redaction": 23,
+        "gateVerification": 12,
+        "encode": 1,
+        "clientTotal": 113
+      },
+      "fusedCount": 5,
+      "domCount": 10,
+      "faceCount": 0,
+      "degradedCapabilities": []
+    },
+    {
+      "fixtureId": 13,
+      "fixtureName": "13_dense_table.html",
+      "title": "Dense Table Stress Test",
+      "dpr": 1.25,
+      "gtItemCount": 15,
+      "detection": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "tp": 15,
+        "fp": 0,
+        "fn": 0
+      },
+      "redaction": {
+        "coverage": 1,
+        "overRedaction": 0,
+        "meanIoU": 0.993200727439231,
+        "pixelLeaks": [],
+        "totalPiiPixels": 11076,
+        "coveredPiiPixels": 11076,
+        "leakedPiiPixels": 0,
+        "piiLeakRate": 0
+      },
+      "ablation": {
+        "fixtureId": 13,
+        "fixtureName": "13_dense_table.html",
+        "title": "Dense Table Stress Test",
+        "totalPiiPixels": 11076,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 98,
+          "leakedPixels": 10855,
+          "coverage": 0.01995305164319249
+        },
+        "leakReduction": 98
+      },
+      "timings": {
+        "screenshotCapture": 32,
+        "domScan": 4,
+        "ocrMs": 0,
+        "crop": 0,
+        "visionInference": 0,
+        "fusion": 0,
+        "redaction": 19,
+        "gateVerification": 12,
+        "encode": 1,
+        "clientTotal": 76
+      },
+      "fusedCount": 15,
+      "domCount": 30,
+      "faceCount": 0,
+      "degradedCapabilities": []
+    },
+    {
+      "fixtureId": 14,
+      "fixtureName": "14_clean_page.html",
+      "title": "Clean Page (Zero PII)",
+      "dpr": 1.25,
+      "gtItemCount": 0,
+      "detection": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      "redaction": {
+        "coverage": 1,
+        "overRedaction": 0,
+        "meanIoU": 1,
+        "pixelLeaks": [],
+        "totalPiiPixels": 0,
+        "coveredPiiPixels": 0,
+        "leakedPiiPixels": 0,
+        "piiLeakRate": 0
+      },
+      "ablation": {
+        "fixtureId": 14,
+        "fixtureName": "14_clean_page.html",
+        "title": "Clean Page (Zero PII)",
+        "totalPiiPixels": 0,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "leakReduction": 0
+      },
+      "timings": {
+        "screenshotCapture": 33,
+        "domScan": 2,
+        "ocrMs": 0,
+        "crop": 0,
+        "visionInference": 0,
+        "fusion": 0,
+        "redaction": 17,
+        "gateVerification": 0,
+        "encode": 1,
+        "clientTotal": 59
+      },
+      "fusedCount": 0,
+      "domCount": 0,
+      "faceCount": 0,
+      "degradedCapabilities": []
+    },
+    {
+      "fixtureId": 15,
+      "fixtureName": "15_prompt_injection.html",
+      "title": "Prompt Injection Attack Fixture",
+      "dpr": 1.25,
+      "gtItemCount": 1,
+      "detection": {
+        "precision": 0.5,
+        "recall": 1,
+        "f1": 0.6666666666666666,
+        "tp": 1,
+        "fp": 1,
+        "fn": 0
+      },
+      "redaction": {
+        "coverage": 1,
+        "overRedaction": 0,
+        "meanIoU": 0.9891587328924086,
+        "pixelLeaks": [],
+        "totalPiiPixels": 7512,
+        "coveredPiiPixels": 7512,
+        "leakedPiiPixels": 0,
+        "piiLeakRate": 0
+      },
+      "ablation": {
+        "fixtureId": 15,
+        "fixtureName": "15_prompt_injection.html",
+        "title": "Prompt Injection Attack Fixture",
+        "totalPiiPixels": 7512,
+        "redactionOn": {
+          "leakRate": 0,
+          "leakedPixels": 0,
+          "coverage": 1
+        },
+        "redactionOff": {
+          "leakRate": 99.5,
+          "leakedPixels": 7474,
+          "coverage": 0.005058572949946752
+        },
+        "leakReduction": 99.5
+      },
+      "timings": {
+        "screenshotCapture": 30,
+        "domScan": 2,
+        "ocrMs": 0,
+        "crop": 0,
+        "visionInference": 0,
+        "fusion": 0,
+        "redaction": 17,
+        "gateVerification": 11,
+        "encode": 1,
+        "clientTotal": 68
+      },
+      "fusedCount": 2,
+      "domCount": 2,
+      "faceCount": 0,
+      "degradedCapabilities": []
+    }
+  ],
+  "misses": [
+    {
+      "fixtureId": 9,
+      "fixtureName": "09_below_the_fold.html",
+      "type": "Detection Miss (FN)",
+      "category": "phone",
+      "text": "+91 99999 88888",
+      "info": "Bounding box not detected by pipeline"
+    },
+    {
+      "fixtureId": 9,
+      "fixtureName": "09_below_the_fold.html",
+      "type": "Detection Miss (FN)",
+      "category": "email",
+      "text": "support.belowfold@example.com",
+      "info": "Bounding box not detected by pipeline"
+    }
+  ]
+}

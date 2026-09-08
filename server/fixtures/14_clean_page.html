@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fixture 14 - Clean Page (Zero PII)</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 30px; background: #fafafa; color: #171717; }
+    .hero { max-width: 600px; margin: 40px auto; text-align: center; }
+    button { padding: 10px 20px; font-size: 16px; background: #2563eb; color: white; border: none; border-radius: 6px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <h1>Welcome to Public Documentation</h1>
+    <p>This is a standard web article containing public news, open source release notes, and general product documentation without any personal identifiers, emails, phones, or credentials.</p>
+    <button id="exploreBtn">Explore Release Notes</button>
+  </div>
+
+  <script>
+    window.__groundTruth = function() {
+      // Returns empty array because this page contains zero PII
+      return [];
+    };
+  </script>
+</body>
+</html>

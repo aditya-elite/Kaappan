@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fixture 09 - PII Below the Fold</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 20px; }
+    .spacer { height: 1200px; background: #f1f5f9; border-left: 4px solid #94a3b8; padding: 20px; }
+    .footer-pii { margin-top: 50px; padding: 20px; background: #e2e8f0; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <h2>Top of Page (Above the fold)</h2>
+  <p>Scroll down to see footer details...</p>
+
+  <div class="spacer">
+    <p>Lots of content pushing the confidential contact details down below the viewport fold...</p>
+  </div>
+
+  <div class="footer-pii">
+    <h3>Confidential Support Line</h3>
+    <p>Emergency Contact: <span data-pii="phone">+91 99999 88888</span></p>
+    <p>Support Email: <span data-pii="email">support.belowfold@example.com</span></p>
+  </div>
+
+  <script>
+    window.__groundTruth = function() {
+      const items = [];
+      document.querySelectorAll('[data-pii]').forEach(node => {
+        const category = node.getAttribute('data-pii');
+        const r = node.getBoundingClientRect();
+        // Only include in groundTruth if within current viewport (not below the fold)
+        const isVisibleInViewport = (
+          r.width > 0 && r.height > 0 &&
+          r.top < window.innerHeight && r.bottom >= 0 &&
+          r.left < window.innerWidth && r.right >= 0
+        );
+        if (isVisibleInViewport) {
+          items.push({
+            category: category,
+            rects: [{ x: r.left, y: r.top, width: r.width, height: r.height }],
+            text: node.innerText || ''
+          });
+        }
+      });
+      return items;
+    };
+  </script>
+</body>
+</html>

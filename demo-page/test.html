@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Job Application — Demo</title>
+  <style>
+    :root {
+      --teal: #0F766E;
+      --teal-light: #F0FDFA;
+      --purple: #7C3AED;
+      --slate: #334155;
+      --border: #E2E8F0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background: linear-gradient(135deg, #F0FDFA 0%, #F5F3FF 100%);
+      min-height: 100vh;
+      margin: 0;
+      padding: 40px 16px;
+      color: var(--slate);
+    }
+    .card {
+      max-width: 480px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(15, 118, 110, 0.12);
+      overflow: hidden;
+    }
+    .card-header {
+      background: linear-gradient(135deg, var(--teal), var(--purple));
+      padding: 24px 28px;
+      color: white;
+    }
+    .card-header h1 { font-size: 19px; margin: 0 0 4px; }
+    .card-header p { font-size: 12.5px; margin: 0; opacity: 0.9; line-height: 1.5; }
+    .card-body { padding: 28px; }
+
+    .photo-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 22px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--border);
+    }
+    #photo {
+      width: 84px; height: 84px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--teal-light);
+      background: #f1f5f9;
+    }
+    .photo-actions { flex: 1; }
+    .photo-actions .hint { font-size: 11.5px; color: #94A3B8; margin: 4px 0 8px; line-height: 1.5; }
+    .upload-btn {
+      display: inline-block;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--teal);
+      background: var(--teal-light);
+      border: 1px solid #99F6E4;
+      padding: 7px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .upload-btn:hover { background: #CCFBF1; }
+    #photoInput { display: none; }
+
+    label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--slate);
+      margin-top: 16px;
+      margin-bottom: 5px;
+    }
+    input[type="text"], input[type="email"], input[type="password"], select {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      transition: border-color 0.15s;
+      background: white;
+      font-family: inherit;
+    }
+    input:focus {
+      outline: none;
+      border-color: var(--teal);
+    }
+    button#submit {
+      width: 100%;
+      margin-top: 24px;
+      padding: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+      background: var(--teal);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button#submit:hover { background: #0d5f58; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="card-header">
+      <h1>Job Application — Demo Form</h1>
+      <p>Has photo, name, email, password, and phone fields — watch the on-device engine redact all confidential data both in blank inputs and as they are filled in before anything leaves the browser.</p>
+    </div>
+    <div class="card-body">
+      <div class="photo-row">
+        <img id="photo"
+             src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 84 84'%3E%3Ccircle cx='42' cy='42' r='42' fill='%23E2E8F0'/%3E%3Ccircle cx='42' cy='34' r='15' fill='%2394A3B8'/%3E%3Cellipse cx='42' cy='72' rx='24' ry='18' fill='%2394A3B8'/%3E%3C/svg%3E"
+             alt="Applicant photo" />
+        <div class="photo-actions">
+          <label class="upload-btn" for="photoInput">Upload your photo</label>
+          <input type="file" id="photoInput" accept="image/*" />
+          <p class="hint">Upload a real photo here for the live demo — watch the
+             extension detect and black it out before the next screenshot is sent.</p>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px; padding: 12px; border: 1.5px dashed var(--border); border-radius: 8px; background: #F8FAFC;">
+        <label for="resumeInput" style="margin-top: 0;">Upload Resume (PDF, DOCX, TXT)</label>
+        <input type="file" id="resumeInput" accept=".pdf,.docx,.doc,.txt" style="margin-top: 6px; font-size: 13px;" />
+        <div id="resumeStatus" style="margin-top: 4px; font-size: 12px; color: var(--teal); font-weight: 500;"></div>
+      </div>
+
+      <label for="name">Full name</label>
+      <input type="text" id="name" name="name" placeholder="Jane Doe" />
+
+      <label for="role">Role applying for</label>
+      <select id="role" name="role">
+        <option value="">-- Select a role --</option>
+        <option value="frontend">Frontend Engineer</option>
+        <option value="backend">Backend Engineer</option>
+        <option value="data">Data Scientist</option>
+        <option value="pm">Product Manager</option>
+      </select>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="jane@example.com" />
+
+      <label for="password">Account password</label>
+      <input type="password" id="password" name="password" placeholder="••••••••" />
+
+      <label for="phone">Phone</label>
+      <input type="text" id="phone" name="phone" placeholder="9876543210" />
+
+      <button id="submit">Submit application</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("photoInput").addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const url = URL.createObjectURL(file);
+      document.getElementById("photo").src = url;
+    });
+
+    document.getElementById("resumeInput").addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      document.getElementById("resumeStatus").textContent = `Attached: ${file.name} (${Math.round(file.size / 1024)} KB)`;
+    });
+
+    document.getElementById("submit").addEventListener("click", () => {
+      alert("Application submitted (demo only — nothing is actually sent).");
+    });
+  </script>
+</body>
+</html>

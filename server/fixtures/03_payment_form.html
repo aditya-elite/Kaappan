@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fixture 03 - Payment Form</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 20px; background: #f1f5f9; }
+    .checkout-box { max-width: 450px; background: white; padding: 25px; border-radius: 8px; }
+    .row { display: flex; gap: 10px; margin-top: 10px; }
+    .col { flex: 1; }
+    input { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #cbd5e1; border-radius: 4px; margin-top: 4px; }
+  </style>
+</head>
+<body>
+  <div class="checkout-box">
+    <h3>Payment Details</h3>
+    <div>
+      <label>Card Number</label>
+      <input type="text" autocomplete="cc-number" value="4532 1122 3344 5566" data-pii="credit_card">
+    </div>
+    <div class="row">
+      <div class="col">
+        <label>Expiry Date</label>
+        <input type="text" autocomplete="cc-exp" value="12/28" data-pii="credit_card">
+      </div>
+      <div class="col">
+        <label>CVV / CVC</label>
+        <input type="password" autocomplete="cc-csc" value="888" data-pii="credit_card">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__groundTruth = function() {
+      const items = [];
+      document.querySelectorAll('[data-pii]').forEach(node => {
+        const category = node.getAttribute('data-pii');
+        const r = node.getBoundingClientRect();
+        items.push({
+          category: category,
+          rects: [{ x: r.left, y: r.top, width: r.width, height: r.height }],
+          text: node.value || node.innerText || ''
+        });
+      });
+      return items;
+    };
+  </script>
+</body>
+</html>

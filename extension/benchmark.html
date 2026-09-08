@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kaappan — Privacy Benchmark Harness</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card-bg: #161b22;
+      --border: #30363d;
+      --text: #c9d1d9;
+      --text-muted: #8b949e;
+      --accent: #38bdf8;
+      --accent-green: #3fb950;
+      --accent-red: #f85149;
+      --accent-purple: #bc8cff;
+      --accent-amber: #d29922;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .header-left h1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .header-left .tag {
+      font-size: 11px;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent);
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-weight: normal;
+    }
+
+    .controls-bar {
+      background: #11161d;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background: #21262d;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .btn:hover:not(:disabled) {
+      background: #30363d;
+      border-color: #8b949e;
+    }
+    .btn-primary {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #0369a1;
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: #0369a1;
+    }
+    .btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .container {
+      padding: 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* KPI Summary Cards Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .kpi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .kpi-title {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .kpi-value {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .kpi-sub {
+      font-size: 12px;
+      color: var(--accent-green);
+    }
+
+    /* Misses Section */
+    .misses-card {
+      background: rgba(248, 81, 73, 0.05);
+      border: 1px solid rgba(248, 81, 73, 0.3);
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .misses-card h3 {
+      margin: 0 0 12px 0;
+      color: var(--accent-red);
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .misses-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .misses-table th, .misses-table td {
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 8px 12px;
+      text-align: left;
+    }
+    .misses-table th {
+      background: rgba(0,0,0,0.3);
+      color: var(--text-muted);
+    }
+
+    /* Table Section */
+    .table-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      overflow-x: auto;
+    }
+    .table-card h3 {
+      margin: 0 0 16px 0;
+      font-size: 16px;
+    }
+    .benchmark-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .benchmark-table th, .benchmark-table td {
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      text-align: flex-start;
+    }
+    .benchmark-table th {
+      background: #11161d;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .benchmark-table tr:hover {
+      background: rgba(255,255,255,0.02);
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge-pass { background: rgba(63, 185, 80, 0.2); color: #3fb950; }
+    .badge-warn { background: rgba(210, 153, 34, 0.2); color: #d29922; }
+    .badge-fail { background: rgba(248, 81, 73, 0.2); color: #f85149; }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 6px;
+      background: #21262d;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 8px;
+      display: none;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      transition: width 0.2s;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <h1>
+        📊 Kaappan — Privacy Benchmark Harness
+        <span class="tag">SIH PS26171 Self-Scoring Baseline</span>
+      </h1>
+    </div>
+  </header>
+
+  <div class="controls-bar">
+    <div style="display: flex; gap: 12px; align-items: center;">
+      <button id="runBtn" class="btn btn-primary">🚀 Run Full Benchmark Corpus (15 Fixtures)</button>
+      <label class="checkbox-label">
+        <input type="checkbox" id="includeLlmOption"> Include LLM Round-trip Latency (Requires Server)
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" id="ablationModeOption"> Ablation Mode (Redaction ON vs OFF)
+      </label>
+    </div>
+    <div>
+      <button id="exportJsonBtn" class="btn" disabled>📥 Export Raw Baseline Report (JSON)</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div id="progressContainer" class="progress-bar-container">
+      <div id="progressFill" class="progress-bar-fill"></div>
+    </div>
+    <div id="statusMessage" style="font-size: 13px; color: var(--text-muted);">
+      Ready to execute benchmark corpus. Ensure local FastAPI server is running on port 8000 for static fixtures.
+    </div>
+
+    <!-- Hard Pre-flight Check Banner -->
+    <div id="preflightCard" class="kpi-card" style="border-left: 4px solid var(--accent-amber); padding: 14px 18px; margin-bottom: 8px;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 8px;">
+          <span>🛡️ Pre-Flight Diagnostic Gate:</span>
+          <span id="preflightStatusBadge" class="status-badge badge-warn">Verifying...</span>
+        </div>
+        <button id="recheckPreflightBtn" class="btn" style="padding: 4px 10px; font-size: 11px;">🔄 Re-check Pre-Flight</button>
+      </div>
+      <div id="preflightDetails" style="font-size: 12px; color: var(--text-muted); margin-top: 8px; line-height: 1.6;">
+        Checking OCRAD definition, ONNX runtime session, and local FastAPI server connectivity...
+      </div>
+    </div>
+
+    <!-- KPI Summary Grid -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-title">Metric 2: PII Detection F1</div>
+        <div id="kpiDetectionF1" class="kpi-value">--</div>
+        <div id="kpiDetectionSub" class="kpi-sub">Precision -- | Recall --</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">Metric 3: Redaction Safety</div>
+        <div id="kpiRedactionCoverage" class="kpi-value">--</div>
+        <div id="kpiRedactionSub" class="kpi-sub">Mean IoU -- | Leaks --</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">Metric 4: Offscreen Peak Memory</div>
+        <div id="kpiPeakMemory" class="kpi-value">--</div>
+        <div id="kpiMemorySub" class="kpi-sub">Backend: -- | Model: 8.5MB</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">Metric 5: Client Latency (Mean)</div>
+        <div id="kpiAvgLatency" class="kpi-value">--</div>
+        <div id="kpiLatencySub" class="kpi-sub">Median: -- | p95: --</div>
+      </div>
+    </div>
+
+    <!-- Misses & Leaks Section -->
+    <div id="missesContainer" class="misses-card" style="display: none;">
+      <h3>⚠️ Detected Misses & Pixel Leaks (<span id="missCount">0</span>)</h3>
+      <table class="misses-table">
+        <thead>
+          <tr>
+            <th>Fixture</th>
+            <th>Type</th>
+            <th>Category</th>
+            <th>Target Text / Details</th>
+            <th>Coordinates / Info</th>
+          </tr>
+        </thead>
+        <tbody id="missesTableBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Detailed Breakdown Table -->
+    <div class="table-card">
+      <h3>Fixture Breakdown Report</h3>
+      <table class="benchmark-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Fixture Page</th>
+            <th>GT Items</th>
+            <th>TP</th>
+            <th>FP</th>
+            <th>FN</th>
+            <th>Precision</th>
+            <th>Recall</th>
+            <th>F1 Score</th>
+            <th>Redaction Coverage</th>
+            <th>Pixel Leaks</th>
+            <th>Health / Degraded</th>
+            <th>Client Latency</th>
+          </tr>
+        </thead>
+        <tbody id="fixtureTableBody">
+          <tr>
+            <td colspan="13" style="text-align: center; color: var(--text-muted); padding: 20px;">
+              No benchmark run completed yet. Click "Run Full Benchmark Corpus" to begin.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Ablation Study Section (Redaction ON vs OFF) -->
+    <div id="ablationContainer" class="table-card" style="display: none;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h3 style="margin: 0; display: flex; align-items: center; gap: 8px;">
+          🔬 Ablation Analysis: Redaction ON vs OFF (Baseline Leakage)
+        </h3>
+        <span class="tag" style="background: rgba(188, 140, 255, 0.15); color: #bc8cff; padding: 2px 8px; border-radius: 12px; font-size: 11px;">Dual-Pass Evaluation</span>
+      </div>
+      <table class="benchmark-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Fixture</th>
+            <th>Total PII Pixels</th>
+            <th>Redaction ON (Leak Rate)</th>
+            <th>Redaction OFF (Leak Rate)</th>
+            <th>Leaked Pixels (ON)</th>
+            <th>Leaked Pixels (OFF)</th>
+            <th>Privacy Benefit (Δ Leak Reduction)</th>
+          </tr>
+        </thead>
+        <tbody id="ablationTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="lib/ocrad.js"></script>
+  <script src="benchmark-scoring.js"></script>
+  <script src="benchmark.js"></script>
+</body>
+</html>

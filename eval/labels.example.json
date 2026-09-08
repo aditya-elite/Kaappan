@@ -1,0 +1,7 @@
+{
+  "screenshot_1.png": [
+    {"x": 40, "y": 200, "width": 300, "height": 32},
+    {"x": 40, "y": 260, "width": 300, "height": 32}
+  ],
+  "_comment": "Replace with real bounding boxes you measure by hand on your own test screenshots. One entry per image file, one box per PII region (password field, email field, face, etc)."
+}

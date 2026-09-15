@@ -608,7 +608,7 @@ function exportReportJson() {
 
   const a = document.createElement("a");
   a.href = url;
-  a.download = `kaappan-benchmark-live-${Date.now()}.json`;
+  a.download = `rearguard-benchmark-live-${Date.now()}.json`;
   a.click();
   URL.revokeObjectURL(url);
 }

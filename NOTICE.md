@@ -1,6 +1,6 @@
 # NOTICE — Third-Party Open Source Components
 
-Kaappan includes and links against third-party open-source software libraries under their respective licenses:
+RearGuard includes and links against third-party open-source software libraries under their respective licenses:
 
 1. **GNU Ocrad (Emscripten JS Port — ocrad.js)**
    - **Path**: `extension/lib/ocrad.js`

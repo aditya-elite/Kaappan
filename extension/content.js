@@ -787,7 +787,7 @@ function redactTextBlock(text, tokenize) {
   // 0. Temporarily mask out non-PII spans (orders, tracking numbers, ISBNs) so PII tokenizers never touch them
   const maskedSpans = [];
   let maskedText = text.replace(NON_PII_SPAN_RE, (match) => {
-    const placeholder = `__KAAPPAN_NON_PII_${maskedSpans.length}__`;
+    const placeholder = `__REARGUARD_NON_PII_${maskedSpans.length}__`;
     maskedSpans.push({ placeholder, original: match });
     return placeholder;
   });

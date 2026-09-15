@@ -1,7 +1,7 @@
-﻿# Kaappan (SIH26171) — Security Architecture & Threat Model
+# RearGuard (SIH26171) — Security Architecture & Threat Model
 
 ## Executive Overview
-**Kaappan** (Tamil: காப்பான், *"one who protects"*) is a privacy-first autonomous browser automation agent. Its core architecture establishes a **strict client-side trust boundary**: all visual and DOM perception, face detection, PII tokenization, and screenshot raster redaction occur entirely on the user's local device inside Chrome Extension sandboxes before any payload is transmitted to the decision model.
+**RearGuard** is a privacy-first autonomous browser automation agent. Its core architecture establishes a **strict client-side trust boundary**: all visual and DOM perception, face detection, PII tokenization, and screenshot raster redaction occur entirely on the user's local device inside Chrome Extension sandboxes before any payload is transmitted to the decision model.
 
 ---
 

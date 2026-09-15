@@ -1,6 +1,6 @@
-# Kaappan — Privacy Benchmark Report (SIH PS26171)
+# RearGuard — Privacy Benchmark Report (SIH PS26171)
 
-**Project:** Kaappan — On-Device Privacy Guardian for Browser Agents (ISRO / SIH26171)  
+**Project:** RearGuard — On-Device Privacy Guardian for Browser Agents (ISRO / SIH26171)  
 **Target Engine:** `extension/benchmark-scoring.js` & `extension/background.js` (`perceiveAndRedact`)  
 **Live Harness:** `chrome-extension://<id>/benchmark.html`
 
@@ -71,7 +71,7 @@ To prove that privacy protection is load-bearing and active rather than incident
 | **Total Leaked PII Pixels** | **0 px** | **89,903 px** | **100.0%** Reduction (Zero Leaks) |
 | **Mean Fixture Coverage** | **100.0%** | **0.7%** | **+99.3%** Protection Improvement |
 
-Across all 15 scenarios, raw browser captures exposed 89,903 sensitive pixels across form controls, ID scans, canvas-rendered credentials, and biometric faces. With Kaappan's on-device redaction active, leaked pixels were reduced to exactly **0**, yielding 100.0% leak-proof privacy gate verification.
+Across all 15 scenarios, raw browser captures exposed 89,903 sensitive pixels across form controls, ID scans, canvas-rendered credentials, and biometric faces. With RearGuard's on-device redaction active, leaked pixels were reduced to exactly **0**, yielding 100.0% leak-proof privacy gate verification.
 
 ---
 
@@ -105,7 +105,7 @@ To generate live, un-fabricated measurements:
 2. **Reload Extension**:
    - Open Chrome and navigate to `chrome://extensions`.
    - Enable **Developer mode** (top-right).
-   - Click the **Reload** button on **Kaappan — Privacy Guardian**.
+   - Click the **Reload** button on **RearGuard — Privacy Guardian**.
 3. **Open Benchmark Page**:
    Navigate to:
    `chrome-extension://<EXTENSION_ID>/benchmark.html`

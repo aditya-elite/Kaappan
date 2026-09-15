@@ -9,7 +9,7 @@ global.chrome = {
 };
 global.location = { href: 'http://localhost:8000/eval' };
 global.document = {
-  title: 'Kaappan PII Test',
+  title: 'RearGuard PII Test',
   getElementById: () => null,
   querySelectorAll: () => [],
 };
@@ -18,7 +18,7 @@ const contentModule = require(path.resolve(__dirname, '../extension/content.js')
 const { redactTextBlock, redactTextBlocks } = contentModule;
 
 console.log('==================================================');
-console.log('Kaappan PII Regex Precedence and Tokenisation Tests');
+console.log('RearGuard PII Regex Precedence and Tokenisation Tests');
 console.log('==================================================');
 
 let testsRun = 0;

@@ -1,6 +1,6 @@
-# 🛡️ Kaappan
+# 🛡️ RearGuard
 
-> **Kaappan — On-Device Privacy Guardian for Browser Agents**  
+> **RearGuard — On-Device Privacy Guardian for Browser Agents**  
 > *Developed for Smart India Hackathon (SIH — Problem Statement SIH26171)*
 
 [![Chrome Extension](https://img.shields.io/badge/Chrome_Extension-MV3-4285F4?logo=googlechrome&logoColor=white)](https://developer.chrome.com/docs/extensions/mv3/)
@@ -26,7 +26,7 @@
 
 Autonomous browser agents require full-page visual screenshots and DOM trees to understand web pages and take actions (clicking buttons, filling forms, navigating). However, transmitting raw screenshots and sensitive fields directly to cloud vision LLMs presents severe privacy and compliance risks (exposure of passwords, emails, phone numbers, ID cards, and biometric faces).
 
-Named after the Tamil root காப்பான் (*kaappan*, "one who protects"), **Kaappan** establishes a **zero-leakage on-device perception pipeline**:
+**RearGuard** establishes a **zero-leakage on-device perception pipeline**:
 1. **Local Visual AI (ONNX Runtime Web)** detects biometric faces directly on the user's machine using WebAssembly SIMD.
 2. **Local DOM Inspector** identifies password fields, emails, contact details, and authentication inputs.
 3. **Client-Side Redaction Engine** burns blackouts into the screenshot and DOM metadata *before* anything leaves the browser.
@@ -215,7 +215,7 @@ uvicorn mock_main:app --reload --port 8000
 ### Step 4: Run the Interactive Demo
 
 1. Open `demo-page/test.html` directly in Chrome (drag and drop the file into a Chrome tab or use File > Open).
-2. Click the **Kaappan** extension icon from your Chrome toolbar.
+2. Click the **RearGuard** extension icon from your Chrome toolbar.
 3. *(Optional)* Expand **"Saved profile"**, save your name/email/phone.
 4. Upload any picture or use the built-in form fields.
 5. In the prompt box, enter a goal such as:
@@ -247,7 +247,7 @@ python eval/eval.py eval/labels.example.json predictions.json
 
 ## 🔤 On-Device OCR: Implementation & Tradeoffs
 
-Kaappan includes an on-device OCR engine ([ocrad.js](extension/lib/ocrad.js)) running directly inside the Chrome Extension background worker for fast local text detection on canvas-rendered PII and image crops:
+RearGuard includes an on-device OCR engine ([ocrad.js](extension/lib/ocrad.js)) running directly inside the Chrome Extension background worker for fast local text detection on canvas-rendered PII and image crops:
 
 - **MV3 Compatibility Patch**: Modified `ocrad.js` initialization header to replace dynamic `eval()` execution with safe environment detection (`Module = typeof Module !== 'undefined' ? Module : {}`), ensuring full compliance with Chrome MV3 `wasm-unsafe-eval` Content Security Policy (CSP).
 - **Execution Performance**: Synchronous crop OCR executes in 3–12ms per element box, avoiding remote network overhead.
@@ -259,7 +259,7 @@ Kaappan includes an on-device OCR engine ([ocrad.js](extension/lib/ocrad.js)) ru
 
 ## 🛡️ Privacy & Detection Guarantees
 
-Kaappan operates under a probabilistic protection model balancing privacy protection with computational efficiency.
+RearGuard operates under a probabilistic protection model balancing privacy protection with computational efficiency.
 
 | Data Type | Detection & Redaction Pipeline | Measured Detection Rate / Target | Known Edge Cases & Un-redacted Scenarios | Degraded Fallback Behavior |
 | :--- | :--- | :---: | :--- | :--- |
@@ -283,7 +283,7 @@ Kaappan operates under a probabilistic protection model balancing privacy protec
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/aditya-elite/Kaappan/issues).
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/aditya-elite/RearGuard/issues).
 
 ---
 

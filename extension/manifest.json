@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Kaappan — Privacy Guardian",
+  "name": "RearGuard — Privacy Guardian",
   "version": "0.2.0",
-  "description": "Kaappan — On-Device Privacy Guardian for Browser Agents (SIH26171).",
+  "description": "RearGuard — On-Device Privacy Guardian for Browser Agents (SIH26171).",
   "permissions": [
     "activeTab",
     "scripting",
@@ -34,7 +34,7 @@
   },
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Kaappan"
+    "default_title": "RearGuard"
   },
   "content_scripts": [
     {

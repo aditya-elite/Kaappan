@@ -1710,7 +1710,7 @@ async function autoProcessUploadedDocument(file) {
     await chrome.storage.local.set({ savedProfile, profile: savedProfile });
     currentProfile = await loadProfile();
     chrome.runtime.sendMessage({ type: "AGENT_PROFILE_UPDATED", profile: savedProfile }).catch(() => {});
-    sendLog(`[Kaappan] Extracted profile details from "${file.name}": ${savedProfile.name || ""} (${savedProfile.email || ""})`, true);
+    sendLog(`[RearGuard] Extracted profile details from "${file.name}": ${savedProfile.name || ""} (${savedProfile.email || ""})`, true);
   }
 
   return { text, profile: merged };
@@ -2204,7 +2204,7 @@ async function perceiveAndRedact(tabId, opts = {}) {
         }
       }
     } catch (ocrErr) {
-      console.warn("[kaappan] OCR extraction warning:", ocrErr.message);
+      console.warn("[rearguard] OCR extraction warning:", ocrErr.message);
       const code = ocrErr.message?.includes("OCR_UNAVAILABLE") ? "OCR_UNAVAILABLE" : "OCR_FAILED";
       if (!degradedCapabilities.includes(code)) degradedCapabilities.push(code);
     }

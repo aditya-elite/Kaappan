@@ -1,5 +1,5 @@
 /**
- * redaction_core.js — Pure Core Redaction & Geometry Utilities for Kaappan
+ * redaction_core.js — Pure Core Redaction & Geometry Utilities for RearGuard
  *
  * Clean UMD module with zero DOM or chrome API dependencies.
  * Exported pure functions:

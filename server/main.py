@@ -1,5 +1,5 @@
 """
-Local decision server for Kaappan (SIH26171).
+Local decision server for RearGuard (SIH26171).
 
 Two endpoints:
   /act  - receives an already-redacted screenshot (or nothing, in DOM-only fallback
@@ -24,7 +24,7 @@ from dotenv import load_dotenv
 env_path = os.path.join(os.path.dirname(__file__), ".env")
 load_dotenv(env_path)
 
-app = FastAPI(title="Kaappan — Decision Server")
+app = FastAPI(title="RearGuard — Decision Server")
 
 fixtures_dir = os.path.join(os.path.dirname(__file__), "fixtures")
 os.makedirs(fixtures_dir, exist_ok=True)
@@ -106,11 +106,11 @@ def _provider() -> str:
 _active_provider = _provider()
 if _active_provider in ("anthropic", "gemini"):
     print(
-        "[kaappan] WARNING: closed-weights provider active. "
+        "[rearguard] WARNING: closed-weights provider active. "
         "PS26171 requires an open-weights deployable model. Set OPENAI_COMPAT_BASE_URL."
     )
 elif _active_provider == "openai_compat":
-    print(f"[kaappan] Open-weights provider active: {OPENAI_COMPAT_MODEL} via {OPENAI_COMPAT_BASE_URL}")
+    print(f"[rearguard] Open-weights provider active: {OPENAI_COMPAT_MODEL} via {OPENAI_COMPAT_BASE_URL}")
 
 
 def call_llm(
